@@ -1,11 +1,15 @@
 # Aloha Yo!
 
 <details>
-<summary>Status Card</summary>
+<summary>Stats Card</summary>
  
 [![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU)](https://github.com/anuraghazra/github-readme-stats)
  
 </details>
+
+<details open>
+
+<summary>Coding status</summary>
 
 <!--START_SECTION:waka-->
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-0-blue)
@@ -73,3 +77,5 @@ Mac                      5 hrs 57 mins       ████░░░░░░░�
 
 
 <!--END_SECTION:waka-->
+
+</details>
