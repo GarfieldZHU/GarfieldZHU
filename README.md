@@ -3,13 +3,17 @@
 <details>
 <summary>Stats Card</summary>
  
-[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU)](https://github.com/anuraghazra/github-readme-stats)
+[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
  
 </details>
+
+<br/>
 
 <details open>
 
 <summary>Coding status</summary>
+
+<br/>
 
 <!--START_SECTION:waka-->
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-0-blue)
