@@ -1,5 +1,12 @@
 # Aloha Yo!
 
+<details>
+<summary>Status Card</summary>
+ 
+[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU)](https://github.com/anuraghazra/github-readme-stats)
+ 
+</details>
+
 <!--START_SECTION:waka-->
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-0-blue)
 
