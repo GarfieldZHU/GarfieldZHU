@@ -3,11 +3,21 @@
 <details>
 <summary>Stats Card</summary>
  
-[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+[![GarfieldZHU's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
  
 </details>
 
 <br/>
+
+<details open>
+<summary>Language Card</summary>
+ 
+[![GarfieldZHU's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=GarfieldZHU&theme=nightowl&layout=compact)](https://github.com/GarfieldZHU/GarfieldZHU)
+
+
+<br/>
+
+</details>
 
 <details open>
 
