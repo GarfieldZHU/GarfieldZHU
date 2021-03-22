@@ -10,7 +10,7 @@
 <br/>
 
 <details open>
-<summary>Language Card</summary>
+<summary>Weekly language Card</summary>
  
 [![GarfieldZHU's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=AlohaYo&theme=nightowl&layout=compact)](https://github.com/GarfieldZHU/GarfieldZHU)
 
