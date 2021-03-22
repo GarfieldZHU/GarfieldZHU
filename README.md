@@ -1,6 +1,6 @@
 # Aloha Yo!
 
-<details>
+<details open>
 <summary>Stats Card</summary>
  
 [![GarfieldZHU's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
@@ -19,7 +19,7 @@
 
 </details>
 
-<details open>
+<details>
 
 <summary>Coding status</summary>
 
