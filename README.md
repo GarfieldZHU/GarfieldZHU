@@ -12,7 +12,7 @@
 <details open>
 <summary>Language Card</summary>
  
-[![GarfieldZHU's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=GarfieldZHU&theme=nightowl&layout=compact)](https://github.com/GarfieldZHU/GarfieldZHU)
+[![GarfieldZHU's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=AlohaYo&theme=nightowl&layout=compact)](https://github.com/GarfieldZHU/GarfieldZHU)
 
 
 <br/>
