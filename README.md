@@ -1,9 +1,9 @@
 # Aloha Yo!
 
 ![Null stack engieneer](https://img.shields.io/badge/-Null_stack_engineer-a890f0)
-![Full stack gamer](https://img.shields.io/badge/-Full_stack_gamer-f08030)
-![Rustacean](https://img.shields.io/badge/-Rustacean-f7c000)
-![Pokémon Master](https://img.shields.io/badge/-Pokémon_Master-78c850)
+![Full stack gamer](https://img.shields.io/badge/-Full_stack_gamer-78c850)
+![Rustacean](https://img.shields.io/badge/-Rustacean-f74c00)
+![Pokémon Master](https://img.shields.io/badge/-Pokémon_Master-f8d030)
 ![El Psy Kongroo](https://img.shields.io/badge/-El_Psy_Kongroo-6890f0)
 
 
