@@ -5,6 +5,7 @@
 ![Rustacean](https://img.shields.io/badge/-Rustacean-f74c00)
 ![Pokémon Master](https://img.shields.io/badge/-Pokémon_Master-f8d030)
 ![El Psy Kongroo](https://img.shields.io/badge/-El_Psy_Kongroo-6890f0)
+![いろいろ](https://img.shields.io/badge/-いろいろ-f85888)
 
 
 <details open>
