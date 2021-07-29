@@ -1,11 +1,12 @@
 # Aloha Yo!
 
-![Null stack engieneer](https://img.shields.io/badge/-Null_stack_engineer-a890f0)
-![Full stack gamer](https://img.shields.io/badge/-Full_stack_gamer-78c850)
-![Rustacean](https://img.shields.io/badge/-Rustacean-f74c00)
-![Pokémon Master](https://img.shields.io/badge/-Pokémon_Master-f8d030)
-![El Psy Kongroo](https://img.shields.io/badge/-El_Psy_Kongroo-6890f0)
-![いろいろ](https://img.shields.io/badge/-いろいろ-f85888)
+[![Null stack engieneer](https://img.shields.io/badge/-Null_stack_engineer-a890f0)](https://github.com/GarfieldZHU)
+[![Full stack gamer](https://img.shields.io/badge/-Full_stack_gamer-78c850)](https://steamcommunity.com/profiles/76561198092274492/)
+[![Rustacean](https://img.shields.io/badge/-Rustacean-f74c00)](https://www.rust-lang.org/)
+[![Pokémon Master](https://img.shields.io/badge/-Pokémon_Master-f8d030)](https://www.pokemon.com/us/pokedex/)
+[![けいおん!!](https://img.shields.io/badge/-けいおん!!-f85888)](https://ja.wikipedia.org/wiki/%E6%94%BE%E8%AA%B2%E5%BE%8C%E3%83%86%E3%82%A3%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%A0_(%E3%82%A2%E3%83%AB%E3%83%90%E3%83%A0))
+[![El Psy Kongroo](https://img.shields.io/badge/-El_Psy_Kongroo-6890f0)](https://mzh.moegirl.org.cn/zh-hans/El_psy_congroo)
+
 
 
 <details open>
