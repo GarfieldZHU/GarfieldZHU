@@ -8,6 +8,8 @@
 [![El Psy Kongroo](https://img.shields.io/badge/-El_Psy_Kongroo-6890f0)](https://mzh.moegirl.org.cn/zh-hans/El_psy_congroo)
 
 
+Hi there, this is Garfield. You can call me AlohaYo. 
+
 <img width="640" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
 
 
