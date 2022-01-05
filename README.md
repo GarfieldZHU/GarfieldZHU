@@ -41,7 +41,7 @@ Hi there, this is Garfield. You can call me AlohaYo.
 <!--START_SECTION:waka-->
 **🐱 My GitHub Data** 
 
-> 🏆 5 Contributions in the Year 2022
+> 🏆 7 Contributions in the Year 2022
  > 
 > 📦 496.6 kB Used in GitHub's Storage 
  > 
@@ -54,10 +54,10 @@ Hi there, this is Garfield. You can call me AlohaYo.
 **I'm an Early 🐤** 
 
 ```text
-🌞 Morning    149 commits    █████░░░░░░░░░░░░░░░░░░░░   23.35% 
-🌆 Daytime    192 commits    ███████░░░░░░░░░░░░░░░░░░   30.09% 
-🌃 Evening    219 commits    ████████░░░░░░░░░░░░░░░░░   34.33% 
-🌙 Night      78 commits     ███░░░░░░░░░░░░░░░░░░░░░░   12.23%
+🌞 Morning    150 commits    █████░░░░░░░░░░░░░░░░░░░░   23.44% 
+🌆 Daytime    192 commits    ███████░░░░░░░░░░░░░░░░░░   30.0% 
+🌃 Evening    220 commits    ████████░░░░░░░░░░░░░░░░░   34.38% 
+🌙 Night      78 commits     ███░░░░░░░░░░░░░░░░░░░░░░   12.19%
 
 ```
 
@@ -66,18 +66,20 @@ Hi there, this is Garfield. You can call me AlohaYo.
 
 ```text
 💬 Programming Languages: 
-No Activity Tracked This Week
+JSON                     1 hr 11 mins        ██████████████████████░░░   88.56% 
+TypeScript               8 mins              ██░░░░░░░░░░░░░░░░░░░░░░░   10.45% 
+JavaScript               0 secs              ░░░░░░░░░░░░░░░░░░░░░░░░░   0.99%
 
 🔥 Editors: 
-No Activity Tracked This Week
+VS Code                  1 hr 20 mins        █████████████████████████   100.0%
 
 💻 Operating System: 
-No Activity Tracked This Week
+Mac                      1 hr 20 mins        █████████████████████████   100.0%
 
 ```
 
 
- Last Updated on 04/01/2022
+ Last Updated on 05/01/2022
 <!--END_SECTION:waka-->
 
 </details>
