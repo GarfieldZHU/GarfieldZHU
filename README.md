@@ -8,6 +8,14 @@
 [![El Psy Kongroo](https://img.shields.io/badge/-El_Psy_Kongroo-6890f0)](https://mzh.moegirl.org.cn/zh-hans/El_psy_congroo)
 
 
+[![Soul-like-fan](https://img.shields.io/badge/-The_Untarnished-ef8b09)](https://store.steampowered.com/app/1245620/ELDEN_RING/)
+[![Soul-like-fan](https://img.shields.io/badge/-The_Good_Hunter-9A1818)](https://store.playstation.com/zh-hans-hk/product/HP9000-CUSA03023_00-BLOODBORNE0000AS)
+[![Soul-like-fan](https://img.shields.io/badge/-The_Ashen_One-a3a3a2)](https://store.steampowered.com/app/374320/DARK_SOULS_III)
+[![Soul-like-fan](https://img.shields.io/badge/-The_Undead-b5674b)](https://store.steampowered.com/app/570940/DARK_SOULS_REMASTERED)
+[![Soul-like-fan](https://img.shields.io/badge/-Sekiro-642927)](https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition)
+
+
+
 Hi there, this is Garfield. You can call me AlohaYo. 
 
 <img width="640" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
