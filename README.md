@@ -17,7 +17,7 @@
 
 Hi there, this is Garfield. You can call me AlohaYo. 
 
-#### Find me
+### :mag: Find me
 
 [![PlayStation Network](https://img.shields.io/badge/AlohaYo_Z-%230070D1.svg?style=for-the-badge&logo=Playstation&logoColor=white)](https://psnprofiles.com/alohayo_)
 [![Steam](https://img.shields.io/badge/steam-%23000000.svg?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/profiles/76561198092274492)
