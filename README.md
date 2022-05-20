@@ -15,8 +15,13 @@
 [![Soul-like-fan](https://img.shields.io/badge/-Sekiro-642927)](https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition)
 
 
-
 Hi there, this is Garfield. You can call me AlohaYo. 
+
+#### Find me
+
+[![PlayStation Network](https://img.shields.io/badge/AlohaYo_Z-%230070D1.svg?style=for-the-badge&logo=Playstation&logoColor=white)](https://psnprofiles.com/alohayo_)
+[![Steam](https://img.shields.io/badge/steam-%23000000.svg?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/profiles/76561198092274492)
+[![Switch](https://img.shields.io/badge/Switch-E60012?style=for-the-badge&logo=nintendo-switch&logoColor=white)]()
 
 <img width="640" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
 
