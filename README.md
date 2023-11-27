@@ -15,10 +15,11 @@
 [![Soul-like-fan](https://img.shields.io/badge/-Sekiro-642927)](https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition)
 
 
-Hi there, this is Garfield. You can call me AlohaYo. 
+Hi there, this is Garfield. You can call me AlohaYo. Go to [my blog](https://alohayo.me).
 
 ### :mag: Find me
 
+[![Blog](https://img.shields.io/badge/Blog-3ECF8E?style=for-the-badge&logo=Bitcoin&logoColor=white)](https://alohayo.me)
 [![PlayStation Network](https://img.shields.io/badge/AlohaYo_Z-%230070D1.svg?style=for-the-badge&logo=Playstation&logoColor=white)](https://psnprofiles.com/alohayo_)
 [![Steam](https://img.shields.io/badge/steam-%23000000.svg?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/profiles/76561198092274492)
 [![Switch](https://img.shields.io/badge/SW_7050_4176_3344-E60012?style=for-the-badge&logo=nintendo-switch&logoColor=white)]()
