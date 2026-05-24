@@ -27,6 +27,19 @@ Hi there, this is Garfield. You can call me AlohaYo. Go to [my blog](https://alo
 <img width="640" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
 
 
+<br/>
+
+<details open>
+<summary>Weekly language Card</summary>
+ 
+[![GarfieldZHU's wakatime stats](https://github-readme-stats-fast.vercel.app/api/wakatime?username=AlohaYo&theme=nightowl&layout=compact)](https://github.com/GarfieldZHU/GarfieldZHU)
+
+
+<br/>
+
+</details>
+
+
 <details open>
 <summary>Stats Card</summary>
  
@@ -35,16 +48,6 @@ Hi there, this is Garfield. You can call me AlohaYo. Go to [my blog](https://alo
 </details>
 
 <br/>
-
-<details open>
-<summary>Weekly language Card</summary>
- 
-[![GarfieldZHU's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=AlohaYo&theme=nightowl&layout=compact)](https://github.com/GarfieldZHU/GarfieldZHU)
-
-
-<br/>
-
-</details>
 
 <details>
 
