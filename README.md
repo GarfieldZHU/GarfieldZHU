@@ -43,33 +43,9 @@ Hi there, this is Garfield. You can call me AlohaYo. Go to [my blog](https://alo
 <details open>
 <summary>Stats Card</summary>
  
-[![GarfieldZHU's github stats](https://github-readme-stats.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+[![GarfieldZHU's github stats](https://github-readme-stats-fast.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
  
 </details>
 
 <br/>
 
-<details>
-
-<summary>Coding status</summary>
-
-<br/>
-
-<!--START_SECTION:waka-->
-**🐱 My GitHub Data** 
-
-> 🏆 246 Contributions in the Year 2023
- > 
-> 📦 488.0 kB Used in GitHub's Storage 
- > 
-> 🚫 Not Opted to Hire
- > 
-> 📜 72 Public Repositories 
- > 
-> 🔑 35 Private Repositories  
- > 
-
- Last Updated on 16/02/2023 18:38:14 UTC
-<!--END_SECTION:waka-->
-
-</details>
