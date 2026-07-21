@@ -4,7 +4,7 @@
 
 </div>
 
-> Hi, I’m Garfield — you can call me **AlohaYo**. I enjoy crafting web experiences, exploring Rust, and getting pleasantly lost in games. Visit [alohayo.me](https://alohayo.me) for more.
+> Hi, I’m Garfield — you can call me **AlohaYo**. I enjoy crafting web experiences, co-working with Agents, exploring the world, and getting pleasantly lost in games. Visit [alohayo.me](https://alohayo.me) for more.
 
 <div align="center">
 
