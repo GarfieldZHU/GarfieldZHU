@@ -48,11 +48,11 @@
 </div>
 
 
-## Agent Token activity
+## Agent activities
 
 <div align="center">
   <a href="https://tokscale.ai/u/GarfieldZHU">
-    <img alt="GarfieldZHU's Codex token activity and contribution graph" src="https://tokscale.ai/api/embed/GarfieldZHU/svg?template=orbit&color=purple&graph=1&rank=percent&tokens=compact" />
+    <img alt="GarfieldZHU's Codex token activity and contribution graph" src="https://tokscale.ai/api/embed/GarfieldZHU/svg?template=graph&color=YlGnBu&rank=percent&tokens=compact&cost=compact" />
   </a>
 </div>
 
