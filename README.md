@@ -36,7 +36,7 @@
 
 </div>
 
-## By the numbers
+## Github Stats
 
 <div align="center">
   <a href="https://github.com/GarfieldZHU/GarfieldZHU">
