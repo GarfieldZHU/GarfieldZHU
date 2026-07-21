@@ -47,9 +47,8 @@
   </a>
 </div>
 
-<!--
 
-## AI coding activity
+## Agent Token activity
 
 <div align="center">
   <a href="https://tokscale.ai/u/GarfieldZHU">
@@ -61,4 +60,3 @@
   <sub>Tracked with <a href="https://github.com/junhoyeo/tokscale">Tokscale</a> — a local-first token monitor for Codex and other AI coding tools.</sub>
 </div>
 
--->
