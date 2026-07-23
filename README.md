@@ -52,7 +52,7 @@
 
 <div align="center">
   <a href="https://tokscale.ai/u/GarfieldZHU">
-    <img alt="GarfieldZHU's Codex token activity and contribution graph" src="https://tokscale.ai/api/embed/GarfieldZHU/svg?template=graph&color=YlGnBu&rank=percent&tokens=compact&cost=compact" />
+    <img alt="GarfieldZHU's Codex token activity and contribution graph" src="https://tokscale.ai/api/embed/GarfieldZHU/svg?template=graph&color=YlGnBu&rank=percent&tokens=full&cost=full" />
   </a>
 </div>
 
