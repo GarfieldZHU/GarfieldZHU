@@ -21,6 +21,10 @@
 [![An Undead](https://img.shields.io/badge/An_Undead-B5674B?style=flat-square)](https://store.steampowered.com/app/570940/DARK_SOULS_REMASTERED)
 [![Sekiro](https://img.shields.io/badge/Sekiro-642927?style=flat-square)](https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition)
 
+<img src="https://shieldcn.dev/views/user/GarfieldZHU.svg" width="1" height="1" alt="" />
+<img src="https://hits.sh/github.com/GarfieldZHU.svg?label=Profile%20views" width="1" height="1" alt="" />
+<img src="https://vbr.nathanchung.dev/badge?page_id=GarfieldZHU.GarfieldZHU" width="1" height="1" alt="" />
+
 <img width="640" alt="K-On!" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
 
 </div>
@@ -59,4 +63,3 @@
 <div align="center">
   <sub>Tracked with <a href="https://github.com/junhoyeo/tokscale">Tokscale</a> — a local-first token monitor for Codex and other AI coding tools.</sub>
 </div>
-
