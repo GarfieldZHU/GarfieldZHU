@@ -23,7 +23,7 @@
 
 
 <img width="640" alt="K-On!" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
-<p><img height="24" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> </p>
+<p><img height="64" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> </p>
 <br/>
 </div>
 
