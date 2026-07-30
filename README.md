@@ -53,7 +53,7 @@
 
 <br/>
 
-## Agent activities
+## Token activities
 
 <div align="center">
   <a href="https://tokscale.ai/u/GarfieldZHU">
