@@ -21,8 +21,10 @@
 [![An Undead](https://img.shields.io/badge/An_Undead-B5674B?style=flat-square)](https://store.steampowered.com/app/570940/DARK_SOULS_REMASTERED)
 [![Sekiro](https://img.shields.io/badge/Sekiro-642927?style=flat-square)](https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition)
 
-<img width="640" alt="K-On!" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
 
+<img width="640" alt="K-On!" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/assets/k-on-5.webp" />
+<p><img height="24" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> </p>
+<br/>
 </div>
 
 <div align="center">
@@ -36,9 +38,9 @@
 
 </div>
 
-<br/><br/>
+<br/>
 
-## Github Stats    <span>&nbsp;&nbsp;&nbsp;&nbsp;<img height="20" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> </span>
+## Github Stats
 
 <div align="center">
   <a href="https://github.com/GarfieldZHU/GarfieldZHU">
@@ -49,6 +51,7 @@
   </a>
 </div>
 
+<br/>
 
 ## Agent activities
 
