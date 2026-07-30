@@ -36,7 +36,9 @@
 
 </div>
 
-## Github Stats
+<br/><br/>
+
+## Github Stats    <span>&nbsp;&nbsp;&nbsp;&nbsp<img height="20" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> </span>
 
 <div align="center">
   <a href="https://github.com/GarfieldZHU/GarfieldZHU">
@@ -45,9 +47,6 @@
   <a href="https://github.com/anuraghazra/github-readme-stats">
     <img height="170" alt="GarfieldZHU's GitHub stats" src="https://github-readme-stats-fast.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight&hide_border=true" />
   </a>
-  <p>
-    <!-- <img height="20" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> -->
-  </p>
 </div>
 
 
@@ -64,6 +63,6 @@
 </div>
 
 
-<img width="1" height="1" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" />
+<!-- <img width="1" height="1" alt="Profile views from ShieldCN" src="https://shieldcn.dev/views/user/GarfieldZHU.svg" /> -->
 <img width="1" height="1" alt="Profile views from hits.sh" src="https://hits.sh/github.com/GarfieldZHU.svg?label=Profile%20views" />
 <img width="1" height="1" alt="Profile views from VBR" src="https://vbr.nathanchung.dev/badge?page_id=GarfieldZHU.GarfieldZHU" />
