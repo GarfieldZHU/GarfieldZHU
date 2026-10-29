@@ -40,12 +40,14 @@
 
 <br/>
 
-## Github Stats
+## WakaTime Coding Activity
+
+<!--START_SECTION:waka-->
+<!--END_SECTION:waka-->
+
+## GitHub Stats
 
 <div align="center">
-  <a href="https://github.com/GarfieldZHU/GarfieldZHU">
-    <img height="170" alt="AlohaYo's weekly coding activity" src="https://github-readme-stats-fast.vercel.app/api/wakatime?username=AlohaYo&theme=nightowl&layout=compact&hide_border=true" />
-  </a>
   <a href="https://github.com/anuraghazra/github-readme-stats">
     <img height="170" alt="GarfieldZHU's GitHub stats" src="https://github-readme-stats-fast.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight&hide_border=true" />
   </a>
