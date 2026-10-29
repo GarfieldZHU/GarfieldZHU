@@ -1,11 +1,15 @@
 name: Update Waka Readme
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
       - master
     paths:
       - '.github/workflows/readme.yml'
+      - 'scripts/update-wakatime.py'
   schedule:
     # Runs at 12am IST
     - cron: '30 18 * * *'
@@ -16,21 +20,19 @@ jobs:
     name: Update Readme with Metrics
     runs-on: ubuntu-latest
     steps:
-      - uses: anmol098/waka-readme-stats@master
-        with:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          SHOW_PROJECTS: False
-          SHOW_LANGUAGE_PER_REPO: False
-          SHOW_DAYS_OF_WEEK: False
-          SHOW_TIMEZONE: False
-          SHOW_PROFILE_VIEWS: False
-          SHOW_LOC_CHART: False
-          SHOW_OS: False
-          SHOW_EDITORS: False
-          SHOW_COMMIT: False
-          SHOW_SHORT_INFO: False
-          SHOW_TOTAL_CODE_TIME: True
-          SHOW_LANGUAGE: True
-          SHOW_AI_CODE_TIME: False
-          SHOW_AI_CODING: False
+      - uses: actions/checkout@v4
+      - name: Update README from the public WakaTime profile
+        env:
+          WAKATIME_USERNAME: AlohaYo
+        run: python3 scripts/update-wakatime.py
+      - name: Commit updated stats
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "WakaTime stats have not changed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: update WakaTime stats"
+          git push origin HEAD:master

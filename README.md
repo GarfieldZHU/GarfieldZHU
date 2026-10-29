@@ -42,7 +42,12 @@
 
 ## WakaTime Coding Activity
 
+[View my WakaTime profile](https://wakatime.com/@AlohaYo)
+
 <!--START_SECTION:waka-->
+**Last 7 days:** 3 hrs 28 mins
+
+**Languages:** Java (1 hr 39 mins) · TypeScript (35 mins) · JavaScript (30 mins) · YAML (19 mins) · JSON (11 mins)
 <!--END_SECTION:waka-->
 
 ## GitHub Stats
