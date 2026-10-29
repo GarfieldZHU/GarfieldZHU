@@ -40,14 +40,14 @@
 
 <br/>
 
-## WakaTime Coding Activity
-
-[View my WakaTime profile](https://wakatime.com/@AlohaYo)
+## Coding Activity
 
 <!--START_SECTION:waka-->
-**Last 7 days:** 3 hrs 28 mins
-
-**Languages:** Java (1 hr 39 mins) · TypeScript (35 mins) · JavaScript (30 mins) · YAML (19 mins) · JSON (11 mins)
+<div align="center">
+  <a href="https://wakatime.com/@AlohaYo">
+    <img src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime.svg" width="640" alt="Garfield Zhu's coding languages over the last 7 days" />
+  </a>
+</div>
 <!--END_SECTION:waka-->
 
 ## GitHub Stats

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the public WakaTime summary in the profile README."""
+"""Refresh the shared WakaTime card and its profile README embed."""
 
 import html
 import json
@@ -14,6 +14,34 @@ README = ROOT / "README.md"
 SVG_CARD = ROOT / "wakatime.svg"
 START = "<!--START_SECTION:waka-->"
 END = "<!--END_SECTION:waka-->"
+PROFILE_IMAGE_URL = "https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime.svg"
+WAKATIME_URL = "https://wakatime.com/@AlohaYo"
+CARD_WIDTH = 640
+MAX_LANGUAGE_ROWS = 8
+LANGUAGE_COLORS = {
+    "c": "#555555",
+    "c#": "#178600",
+    "c++": "#f34b7d",
+    "css": "#563d7c",
+    "go": "#00ADD8",
+    "html": "#e34c26",
+    "java": "#b07219",
+    "javascript": "#f1e05a",
+    "json": "#292929",
+    "kotlin": "#A97BFF",
+    "markdown": "#083fa1",
+    "php": "#4F5D95",
+    "python": "#3572A5",
+    "ruby": "#701516",
+    "rust": "#dea584",
+    "shell": "#89e051",
+    "shell script": "#89e051",
+    "swift": "#F05138",
+    "toml": "#9c4221",
+    "typescript": "#3178c6",
+    "yaml": "#cb171e",
+}
+OTHER_COLOR = "#718096"
 
 
 def fetch_stats(username: str) -> dict:
@@ -34,96 +62,132 @@ def fetch_stats(username: str) -> dict:
     return stats
 
 
-def render(stats: dict) -> str:
-    total = stats.get("human_readable_total")
-    if not total:
-        raise RuntimeError("WakaTime response did not include a total for the last seven days.")
+def render(_stats: dict) -> str:
+    """Embed the shared SVG card in the GitHub profile README."""
+    return f'''<div align="center">
+  <a href="{WAKATIME_URL}">
+    <img src="{PROFILE_IMAGE_URL}" width="640" alt="Garfield Zhu's coding languages over the last 7 days" />
+  </a>
+</div>'''
 
-    languages = [
-        language
-        for language in stats.get("languages", [])
-        if language.get("name") != "Other" and language.get("total_seconds", 0) > 0
-    ]
-    languages.sort(key=lambda language: language.get("total_seconds", 0), reverse=True)
 
-    def escape_markdown(value: str) -> str:
-        return value.replace("|", "\\|")
+def compact_duration(seconds: float) -> str:
+    minutes = max(0, round(float(seconds) / 60))
+    hours, minutes = divmod(minutes, 60)
+    if hours and minutes:
+        return f"{hours}h {minutes}m"
+    if hours:
+        return f"{hours}h"
+    return f"{minutes}m" if minutes else "<1m"
 
-    top_languages = [
-        f"{escape_markdown(language['name'])} ({language.get('text', '')})"
-        for language in languages[:5]
-    ]
-    language_summary = " · ".join(top_languages) if top_languages else "No language activity yet."
-    return f"**Last 7 days:** {total}\n\n**Languages:** {language_summary}"
+
+def language_rows(stats: dict) -> tuple[list[dict], float]:
+    languages = []
+    for language in stats.get("languages", []):
+        name = str(language.get("name", "Unknown")).strip()
+        seconds = float(language.get("total_seconds", 0) or 0)
+        # WakaTime's built-in "Other" bucket is excluded from its public
+        # language total, so keep it out of both the bars and denominator.
+        if not name or name.casefold() == "other" or seconds <= 0:
+            continue
+        languages.append({"name": name, "total_seconds": seconds})
+
+    languages.sort(key=lambda language: language["total_seconds"], reverse=True)
+    total_seconds = sum(language["total_seconds"] for language in languages)
+
+    if len(languages) > MAX_LANGUAGE_ROWS:
+        visible = languages[: MAX_LANGUAGE_ROWS - 1]
+        remainder = languages[MAX_LANGUAGE_ROWS - 1 :]
+        visible.append({
+            "name": "Others",
+            "total_seconds": sum(language["total_seconds"] for language in remainder),
+        })
+    else:
+        visible = languages
+
+    return visible, total_seconds
 
 
 def render_svg(stats: dict) -> str:
-    total = stats.get("human_readable_total")
-    if not total:
+    human_readable_total = stats.get("human_readable_total")
+    if not human_readable_total:
         raise RuntimeError("WakaTime response did not include a total for the last seven days.")
 
-    languages = [
-        language
-        for language in stats.get("languages", [])
-        if language.get("name") != "Other" and language.get("total_seconds", 0) > 0
-    ]
-    languages.sort(key=lambda language: language.get("total_seconds", 0), reverse=True)
-    total_language_seconds = sum(language.get("total_seconds", 0) for language in languages)
-    languages = languages[:5]
+    languages, total_language_seconds = language_rows(stats)
+    total_seconds = float(stats.get("total_seconds") or total_language_seconds)
+    total = compact_duration(total_seconds) if total_seconds > 0 else str(human_readable_total)
+    total_text = html.escape(total, quote=True)
+
+    margin = 28
+    column_gap = 20
+    column_width = (CARD_WIDTH - margin * 2 - column_gap) / 2
+    rows_per_column = max(1, (len(languages) + 1) // 2)
+    rows_top = 84
+    row_height = 46
+    footer_rule_y = rows_top + rows_per_column * row_height + 4
+    card_height = footer_rule_y + 28
 
     rows = []
     for index, language in enumerate(languages):
-        y = 126 + index * 35
-        seconds = language.get("total_seconds", 0)
+        column = index % 2
+        row = index // 2
+        x = margin + column * (column_width + column_gap)
+        y = rows_top + row * row_height
+        seconds = language["total_seconds"]
         percent = (seconds / total_language_seconds * 100) if total_language_seconds else 0
-        bar_width = round(276 * percent / 100)
+        track_width = column_width - 16
+        bar_width = min(track_width, track_width * percent / 100)
         if percent > 0:
             bar_width = max(bar_width, 3)
-        name = html.escape(str(language.get("name", "Unknown")), quote=True)
-        duration = html.escape(str(language.get("text", "")), quote=True)
+        name = html.escape(language["name"], quote=True)
+        duration = compact_duration(seconds)
+        stats_label = html.escape(f"{duration} · {percent:.1f}%", quote=True)
+        color = LANGUAGE_COLORS.get(language["name"].casefold(), OTHER_COLOR)
         rows.append(
             f'''  <g class="language-row">
-    <text x="32" y="{y}" class="language">{name}</text>
-    <text x="168" y="{y}" class="duration">{duration}</text>
-    <rect x="288" y="{y - 11}" width="276" height="8" rx="4" class="track" />
-    <rect x="288" y="{y - 11}" width="{bar_width}" height="8" rx="4" class="bar" />
-    <text x="594" y="{y}" class="percent" text-anchor="end">{percent:.1f}%</text>
+    <circle cx="{x + 4:.1f}" cy="{y + 5}" r="4" fill="{color}" stroke="#ffffff" stroke-opacity=".28" />
+    <text x="{x + 15:.1f}" y="{y + 9}" class="language">{name}</text>
+    <text x="{x + column_width:.1f}" y="{y + 9}" class="duration" text-anchor="end">{stats_label}</text>
+    <rect x="{x + 15:.1f}" y="{y + 18}" width="{track_width:.1f}" height="4" rx="2" class="track" />
+    <rect x="{x + 15:.1f}" y="{y + 18}" width="{bar_width:.1f}" height="4" rx="2" fill="{color}" />
   </g>'''
         )
 
-    rows_markup = "\n".join(rows) or '''  <text x="32" y="143" class="empty">No language activity in the last 7 days.</text>'''
-    total_text = html.escape(str(total), quote=True)
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="640" height="322" viewBox="0 0 640 322" role="img" aria-labelledby="title description">
-  <title id="title">WakaTime coding activity</title>
-  <desc id="description">Programming language usage over the last seven days. Total coding time: {total_text}.</desc>
+    if rows:
+        rows_markup = "\n".join(rows)
+    else:
+        rows_markup = f'''  <text x="{margin}" y="{rows_top + 12}" class="empty">No language activity in the last 7 days.</text>'''
+
+    language_names = ", ".join(language["name"] for language in languages) or "no language activity"
+    description = html.escape(
+        f"Coding activity over the last 7 days: {total}. Languages shown: {language_names}.",
+        quote=True,
+    )
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{CARD_WIDTH}" height="{card_height}" viewBox="0 0 {CARD_WIDTH} {card_height}" role="img" aria-labelledby="title description">
+  <title id="title">Garfield Zhu’s coding languages · last 7 days</title>
+  <desc id="description">{description}</desc>
   <defs>
-    <linearGradient id="accent" x1="0" x2="1">
-      <stop offset="0%" stop-color="#a78bfa" />
-      <stop offset="100%" stop-color="#38bdf8" />
-    </linearGradient>
     <style>
-      .card {{ fill: #111827; stroke: #334155; stroke-width: 1.5; }}
-      .title {{ fill: #f8fafc; font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .subtitle {{ fill: #94a3b8; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .total {{ fill: #e2e8f0; font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .language {{ fill: #e2e8f0; font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .duration {{ fill: #94a3b8; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .percent {{ fill: #cbd5e1; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .track {{ fill: #263244; }}
-      .bar {{ fill: url(#accent); }}
+      .card {{ fill: #0b1220; stroke: #263449; stroke-width: 1.5; }}
+      .title {{ fill: #f8fafc; font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: -.2px; }}
+      .period {{ fill: #94a3b8; font: 600 9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 1px; }}
+      .total {{ fill: #e2e8f0; font: 600 14px ui-monospace, SFMono-Regular, Menlo, monospace; }}
+      .language {{ fill: #e2e8f0; font: 500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+      .duration {{ fill: #94a3b8; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }}
+      .track {{ fill: #334155; }}
       .empty {{ fill: #cbd5e1; font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+      .source {{ fill: #64748b; font: 10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
     </style>
   </defs>
-  <rect x="1" y="1" width="638" height="320" rx="18" class="card" />
-  <circle cx="39" cy="39" r="17" fill="url(#accent)" />
-  <text x="39" y="45" text-anchor="middle" fill="#111827" font-family="sans-serif" font-size="17" font-weight="700">W</text>
-  <text x="66" y="37" class="title">WakaTime</text>
-  <text x="66" y="57" class="subtitle">Top languages · last 7 days</text>
-  <text x="608" y="31" class="subtitle" text-anchor="end">TOTAL TIME</text>
-  <text x="608" y="52" class="total" text-anchor="end">{total_text}</text>
-  <line x1="26" y1="78" x2="614" y2="78" stroke="#334155" />
+  <rect x="1" y="1" width="{CARD_WIDTH - 2}" height="{card_height - 2}" rx="15" class="card" />
+  <text x="28" y="37" class="title">Garfield Zhu’s coding languages</text>
+  <line x1="477" y1="14" x2="477" y2="48" stroke="#263449" />
+  <text x="612" y="23" class="period" text-anchor="end">LAST 7 DAYS</text>
+  <text x="612" y="43" class="total" text-anchor="end">{total_text}</text>
+  <line x1="26" y1="61" x2="614" y2="61" stroke="#263449" />
 {rows_markup}
-  <text x="32" y="300" class="subtitle">Updated from my public WakaTime profile</text>
+  <line x1="26" y1="{footer_rule_y}" x2="614" y2="{footer_rule_y}" stroke="#263449" />
+  <text x="28" y="{card_height - 10}" class="source">Data source: WakaTime · Language colors: GitHub Linguist</text>
 </svg>
 '''
 
