@@ -27,12 +27,12 @@ jobs:
         run: python3 scripts/update-wakatime.py
       - name: Commit updated stats
         run: |
-          if git diff --quiet -- README.md; then
+          if git diff --quiet -- README.md wakatime.svg; then
             echo "WakaTime stats have not changed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md wakatime.svg
           git commit -m "docs: update WakaTime stats"
           git push origin HEAD:master
