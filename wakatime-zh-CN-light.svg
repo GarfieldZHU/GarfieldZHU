@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="346" viewBox="0 0 640 346" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="392" viewBox="0 0 640 392" role="img" aria-labelledby="title description">
   <title id="title">Garfield Zhu 的编程活动 · 近 7 天</title>
-  <desc id="description">过去 7 天的编程活动：3h 28m。统计语言：Java, TypeScript, JavaScript, YAML, JSON, Rust, Markdown, CSS, TOML。</desc>
+  <desc id="description">过去 7 天的编程活动：6h 35m。统计语言：TypeScript, JavaScript, Python, CSS, Java, YAML, MDX, JSON, Bash, Rust, 其他。</desc>
   <defs>
     <style>
       .card { fill: #ffffff; stroke: #d8e1ec; stroke-width: 1.5; }
@@ -14,75 +14,89 @@
       .source { fill: #64748b; font: 10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     </style>
   </defs>
-  <rect x="1" y="1" width="638" height="344" rx="15" class="card" />
+  <rect x="1" y="1" width="638" height="390" rx="15" class="card" />
   <text x="28" y="37" class="title">Garfield Zhu 的编程活动</text>
   <line x1="477" y1="14" x2="477" y2="48" stroke="#d8e1ec" />
   <text x="612" y="23" class="period" text-anchor="end">近 7 天</text>
-  <text x="612" y="43" class="total" text-anchor="end">3h 28m</text>
+  <text x="612" y="43" class="total" text-anchor="end">6h 35m</text>
   <line x1="26" y1="61" x2="614" y2="61" stroke="#d8e1ec" />
   <g class="language-row">
-    <circle cx="32.0" cy="89" r="4" fill="#b07219" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="43.0" y="93" class="language">Java</text>
-    <text x="310.0" y="93" class="duration" text-anchor="end">1h 39m · 47.6%</text>
+    <circle cx="32.0" cy="89" r="4" fill="#3178c6" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="43.0" y="93" class="language">TypeScript</text>
+    <text x="310.0" y="93" class="duration" text-anchor="end">1h 55m · 29.1%</text>
     <rect x="43.0" y="102" width="266.0" height="4" rx="2" class="track" />
-    <rect x="43.0" y="102" width="126.7" height="4" rx="2" fill="#b07219" />
+    <rect x="43.0" y="102" width="77.5" height="4" rx="2" fill="#3178c6" />
   </g>
   <g class="language-row">
-    <circle cx="334.0" cy="89" r="4" fill="#3178c6" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="345.0" y="93" class="language">TypeScript</text>
-    <text x="612.0" y="93" class="duration" text-anchor="end">35m · 16.8%</text>
+    <circle cx="334.0" cy="89" r="4" fill="#f1e05a" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="345.0" y="93" class="language">JavaScript</text>
+    <text x="612.0" y="93" class="duration" text-anchor="end">1h 3m · 15.9%</text>
     <rect x="345.0" y="102" width="266.0" height="4" rx="2" class="track" />
-    <rect x="345.0" y="102" width="44.8" height="4" rx="2" fill="#3178c6" />
+    <rect x="345.0" y="102" width="42.4" height="4" rx="2" fill="#f1e05a" />
   </g>
   <g class="language-row">
-    <circle cx="32.0" cy="135" r="4" fill="#f1e05a" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="43.0" y="139" class="language">JavaScript</text>
-    <text x="310.0" y="139" class="duration" text-anchor="end">30m · 14.6%</text>
+    <circle cx="32.0" cy="135" r="4" fill="#3572A5" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="43.0" y="139" class="language">Python</text>
+    <text x="310.0" y="139" class="duration" text-anchor="end">49m · 12.5%</text>
     <rect x="43.0" y="148" width="266.0" height="4" rx="2" class="track" />
-    <rect x="43.0" y="148" width="38.9" height="4" rx="2" fill="#f1e05a" />
+    <rect x="43.0" y="148" width="33.4" height="4" rx="2" fill="#3572A5" />
   </g>
   <g class="language-row">
-    <circle cx="334.0" cy="135" r="4" fill="#cb171e" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="345.0" y="139" class="language">YAML</text>
-    <text x="612.0" y="139" class="duration" text-anchor="end">19m · 9.3%</text>
+    <circle cx="334.0" cy="135" r="4" fill="#563d7c" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="345.0" y="139" class="language">CSS</text>
+    <text x="612.0" y="139" class="duration" text-anchor="end">43m · 11.0%</text>
     <rect x="345.0" y="148" width="266.0" height="4" rx="2" class="track" />
-    <rect x="345.0" y="148" width="24.8" height="4" rx="2" fill="#cb171e" />
+    <rect x="345.0" y="148" width="29.2" height="4" rx="2" fill="#563d7c" />
   </g>
   <g class="language-row">
-    <circle cx="32.0" cy="181" r="4" fill="#292929" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="43.0" y="185" class="language">JSON</text>
-    <text x="310.0" y="185" class="duration" text-anchor="end">11m · 5.5%</text>
+    <circle cx="32.0" cy="181" r="4" fill="#b07219" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="43.0" y="185" class="language">Java</text>
+    <text x="310.0" y="185" class="duration" text-anchor="end">41m · 10.4%</text>
     <rect x="43.0" y="194" width="266.0" height="4" rx="2" class="track" />
-    <rect x="43.0" y="194" width="14.5" height="4" rx="2" fill="#292929" />
+    <rect x="43.0" y="194" width="27.6" height="4" rx="2" fill="#b07219" />
   </g>
   <g class="language-row">
-    <circle cx="334.0" cy="181" r="4" fill="#dea584" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="345.0" y="185" class="language">Rust</text>
-    <text x="612.0" y="185" class="duration" text-anchor="end">8m · 3.6%</text>
+    <circle cx="334.0" cy="181" r="4" fill="#cb171e" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="345.0" y="185" class="language">YAML</text>
+    <text x="612.0" y="185" class="duration" text-anchor="end">34m · 8.6%</text>
     <rect x="345.0" y="194" width="266.0" height="4" rx="2" class="track" />
-    <rect x="345.0" y="194" width="9.7" height="4" rx="2" fill="#dea584" />
+    <rect x="345.0" y="194" width="23.0" height="4" rx="2" fill="#cb171e" />
   </g>
   <g class="language-row">
-    <circle cx="32.0" cy="227" r="4" fill="#083fa1" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="43.0" y="231" class="language">Markdown</text>
-    <text x="310.0" y="231" class="duration" text-anchor="end">3m · 1.4%</text>
+    <circle cx="32.0" cy="227" r="4" fill="#718096" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="43.0" y="231" class="language">MDX</text>
+    <text x="310.0" y="231" class="duration" text-anchor="end">17m · 4.3%</text>
     <rect x="43.0" y="240" width="266.0" height="4" rx="2" class="track" />
-    <rect x="43.0" y="240" width="3.8" height="4" rx="2" fill="#083fa1" />
+    <rect x="43.0" y="240" width="11.5" height="4" rx="2" fill="#718096" />
   </g>
   <g class="language-row">
-    <circle cx="334.0" cy="227" r="4" fill="#563d7c" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="345.0" y="231" class="language">CSS</text>
-    <text x="612.0" y="231" class="duration" text-anchor="end">2m · 1.1%</text>
+    <circle cx="334.0" cy="227" r="4" fill="#292929" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="345.0" y="231" class="language">JSON</text>
+    <text x="612.0" y="231" class="duration" text-anchor="end">12m · 2.9%</text>
     <rect x="345.0" y="240" width="266.0" height="4" rx="2" class="track" />
-    <rect x="345.0" y="240" width="3.0" height="4" rx="2" fill="#563d7c" />
+    <rect x="345.0" y="240" width="7.8" height="4" rx="2" fill="#292929" />
   </g>
   <g class="language-row">
-    <circle cx="32.0" cy="273" r="4" fill="#9c4221" stroke="#0f172a" stroke-opacity=".14" />
-    <text x="43.0" y="277" class="language">TOML</text>
-    <text x="310.0" y="277" class="duration" text-anchor="end">&lt;1m · 0.0%</text>
+    <circle cx="32.0" cy="273" r="4" fill="#718096" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="43.0" y="277" class="language">Bash</text>
+    <text x="310.0" y="277" class="duration" text-anchor="end">9m · 2.3%</text>
     <rect x="43.0" y="286" width="266.0" height="4" rx="2" class="track" />
-    <rect x="43.0" y="286" width="3.0" height="4" rx="2" fill="#9c4221" />
+    <rect x="43.0" y="286" width="6.2" height="4" rx="2" fill="#718096" />
   </g>
-  <line x1="26" y1="318" x2="614" y2="318" stroke="#d8e1ec" />
-  <text x="28" y="336" class="source">数据来源：WakaTime · 语言颜色：GitHub Linguist</text>
+  <g class="language-row">
+    <circle cx="334.0" cy="273" r="4" fill="#dea584" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="345.0" y="277" class="language">Rust</text>
+    <text x="612.0" y="277" class="duration" text-anchor="end">8m · 1.9%</text>
+    <rect x="345.0" y="286" width="266.0" height="4" rx="2" class="track" />
+    <rect x="345.0" y="286" width="5.1" height="4" rx="2" fill="#dea584" />
+  </g>
+  <g class="language-row">
+    <circle cx="32.0" cy="319" r="4" fill="#718096" stroke="#0f172a" stroke-opacity=".14" />
+    <text x="43.0" y="323" class="language">其他</text>
+    <text x="310.0" y="323" class="duration" text-anchor="end">4m · 0.9%</text>
+    <rect x="43.0" y="332" width="266.0" height="4" rx="2" class="track" />
+    <rect x="43.0" y="332" width="3.0" height="4" rx="2" fill="#718096" />
+  </g>
+  <line x1="26" y1="364" x2="614" y2="364" stroke="#d8e1ec" />
+  <text x="28" y="382" class="source">数据来源：WakaTime · 语言颜色：GitHub Linguist</text>
 </svg>
