@@ -58,7 +58,7 @@
 
 <div align="center">
   <a href="https://github.com/anuraghazra/github-readme-stats">
-    <img height="170" alt="GarfieldZHU's GitHub stats" src="https://github-readme-stats-fast.vercel.app/api?username=GarfieldZHU&show_icons=true&theme=tokyonight&hide_border=true" />
+    <img height="170" alt="GarfieldZHU's GitHub stats" src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/github-stats.svg" />
   </a>
 </div>
 
