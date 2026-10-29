@@ -12,12 +12,68 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 SVG_CARD = ROOT / "wakatime.svg"
+SVG_VARIANTS = {
+    ("en", "light"): ROOT / "wakatime-en-light.svg",
+    ("en", "dark"): ROOT / "wakatime-en-dark.svg",
+    ("zh-CN", "light"): ROOT / "wakatime-zh-CN-light.svg",
+    ("zh-CN", "dark"): ROOT / "wakatime-zh-CN-dark.svg",
+}
 START = "<!--START_SECTION:waka-->"
 END = "<!--END_SECTION:waka-->"
-PROFILE_IMAGE_URL = "https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime.svg"
+PROFILE_IMAGE_BASE = "https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master"
 WAKATIME_URL = "https://wakatime.com/@AlohaYo"
 CARD_WIDTH = 640
 MAX_LANGUAGE_ROWS = 8
+CARD_COPY = {
+    "en": {
+        "title": "Garfield Zhu’s coding languages",
+        "period": "LAST 7 DAYS",
+        "period_description": "the last 7 days",
+        "others": "Others",
+        "empty": "No coding activity over the last 7 days.",
+        "source": "Data source: WakaTime · Language colors: GitHub Linguist",
+        "description": "Coding activity over {period}: {total}. Languages shown: {languages}.",
+    },
+    "zh-CN": {
+        "title": "Garfield Zhu 的编程语言",
+        "period": "近 7 天",
+        "period_description": "过去 7 天",
+        "others": "其他",
+        "empty": "过去 7 天没有编程活动。",
+        "source": "数据来源：WakaTime · 语言颜色：GitHub Linguist",
+        "description": "{period}的编程活动：{total}。统计语言：{languages}。",
+    },
+}
+CARD_PALETTES = {
+    "dark": {
+        "card": "#0b1220",
+        "border": "#263449",
+        "title": "#f8fafc",
+        "period": "#94a3b8",
+        "total": "#e2e8f0",
+        "language": "#e2e8f0",
+        "duration": "#94a3b8",
+        "track": "#334155",
+        "empty": "#cbd5e1",
+        "source": "#64748b",
+        "dot_outline": "#ffffff",
+        "dot_outline_opacity": ".28",
+    },
+    "light": {
+        "card": "#ffffff",
+        "border": "#d8e1ec",
+        "title": "#172033",
+        "period": "#64748b",
+        "total": "#334155",
+        "language": "#263449",
+        "duration": "#64748b",
+        "track": "#e2e8f0",
+        "empty": "#64748b",
+        "source": "#64748b",
+        "dot_outline": "#0f172a",
+        "dot_outline_opacity": ".14",
+    },
+}
 LANGUAGE_COLORS = {
     "c": "#555555",
     "c#": "#178600",
@@ -64,9 +120,16 @@ def fetch_stats(username: str) -> dict:
 
 def render(_stats: dict) -> str:
     """Embed the shared SVG card in the GitHub profile README."""
+    light_image_url = f"{PROFILE_IMAGE_BASE}/wakatime-en-light.svg"
+    dark_image_url = f"{PROFILE_IMAGE_BASE}/wakatime-en-dark.svg"
+    fallback_image_url = f"{PROFILE_IMAGE_BASE}/wakatime.svg"
     return f'''<div align="center">
   <a href="{WAKATIME_URL}">
-    <img src="{PROFILE_IMAGE_URL}" width="640" alt="Garfield Zhu's coding languages over the last 7 days" />
+    <picture>
+      <source media="(prefers-color-scheme: light)" srcset="{light_image_url}" />
+      <source media="(prefers-color-scheme: dark)" srcset="{dark_image_url}" />
+      <img src="{fallback_image_url}" width="640" alt="Garfield Zhu's coding languages over the last 7 days" />
+    </picture>
   </a>
 </div>'''
 
@@ -108,7 +171,9 @@ def language_rows(stats: dict) -> tuple[list[dict], float]:
     return visible, total_seconds
 
 
-def render_svg(stats: dict) -> str:
+def render_svg(stats: dict, locale: str = "en", theme: str = "dark") -> str:
+    copy = CARD_COPY.get(locale, CARD_COPY["en"])
+    palette = CARD_PALETTES.get(theme, CARD_PALETTES["dark"])
     human_readable_total = stats.get("human_readable_total")
     if not human_readable_total:
         raise RuntimeError("WakaTime response did not include a total for the last seven days.")
@@ -139,13 +204,15 @@ def render_svg(stats: dict) -> str:
         bar_width = min(track_width, track_width * percent / 100)
         if percent > 0:
             bar_width = max(bar_width, 3)
-        name = html.escape(language["name"], quote=True)
+        source_name = language["name"]
+        display_name = copy["others"] if source_name == "Others" else source_name
+        name = html.escape(display_name, quote=True)
         duration = compact_duration(seconds)
         stats_label = html.escape(f"{duration} · {percent:.1f}%", quote=True)
-        color = LANGUAGE_COLORS.get(language["name"].casefold(), OTHER_COLOR)
+        color = LANGUAGE_COLORS.get(source_name.casefold(), OTHER_COLOR)
         rows.append(
             f'''  <g class="language-row">
-    <circle cx="{x + 4:.1f}" cy="{y + 5}" r="4" fill="{color}" stroke="#ffffff" stroke-opacity=".28" />
+    <circle cx="{x + 4:.1f}" cy="{y + 5}" r="4" fill="{color}" stroke="{palette['dot_outline']}" stroke-opacity="{palette['dot_outline_opacity']}" />
     <text x="{x + 15:.1f}" y="{y + 9}" class="language">{name}</text>
     <text x="{x + column_width:.1f}" y="{y + 9}" class="duration" text-anchor="end">{stats_label}</text>
     <rect x="{x + 15:.1f}" y="{y + 18}" width="{track_width:.1f}" height="4" rx="2" class="track" />
@@ -156,38 +223,43 @@ def render_svg(stats: dict) -> str:
     if rows:
         rows_markup = "\n".join(rows)
     else:
-        rows_markup = f'''  <text x="{margin}" y="{rows_top + 12}" class="empty">No language activity in the last 7 days.</text>'''
+        rows_markup = f'''  <text x="{margin}" y="{rows_top + 12}" class="empty">{html.escape(copy["empty"])}</text>'''
 
-    language_names = ", ".join(language["name"] for language in languages) or "no language activity"
-    description = html.escape(
-        f"Coding activity over the last 7 days: {total}. Languages shown: {language_names}.",
-        quote=True,
-    )
+    language_names = ", ".join(
+        copy["others"] if language["name"] == "Others" else language["name"]
+        for language in languages
+    ) or copy["empty"]
+    description = html.escape(copy["description"].format(
+        period=copy["period_description"], total=total, languages=language_names
+    ), quote=True)
+    title = html.escape(copy["title"], quote=True)
+    period = html.escape(copy["period"], quote=True)
+    source = html.escape(copy["source"], quote=True)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{CARD_WIDTH}" height="{card_height}" viewBox="0 0 {CARD_WIDTH} {card_height}" role="img" aria-labelledby="title description">
-  <title id="title">Garfield Zhu’s coding languages · last 7 days</title>
+  <title id="title">{title} · {period}</title>
   <desc id="description">{description}</desc>
   <defs>
     <style>
-      .card {{ fill: #0b1220; stroke: #263449; stroke-width: 1.5; }}
-      .title {{ fill: #f8fafc; font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: -.2px; }}
-      .period {{ fill: #94a3b8; font: 600 9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 1px; }}
-      .total {{ fill: #e2e8f0; font: 600 14px ui-monospace, SFMono-Regular, Menlo, monospace; }}
-      .language {{ fill: #e2e8f0; font: 500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .duration {{ fill: #94a3b8; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }}
-      .track {{ fill: #334155; }}
-      .empty {{ fill: #cbd5e1; font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-      .source {{ fill: #64748b; font: 10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+      .card {{ fill: {palette['card']}; stroke: {palette['border']}; stroke-width: 1.5; }}
+      .title {{ fill: {palette['title']}; font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: -.2px; }}
+      .period {{ fill: {palette['period']}; font: 600 9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 1px; }}
+      .total {{ fill: {palette['total']}; font: 600 14px ui-monospace, SFMono-Regular, Menlo, monospace; }}
+      .language {{ fill: {palette['language']}; font: 500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+      .duration {{ fill: {palette['duration']}; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }}
+      .track {{ fill: {palette['track']}; }}
+      .empty {{ fill: {palette['empty']}; font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+      .source {{ fill: {palette['source']}; font: 10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
     </style>
   </defs>
   <rect x="1" y="1" width="{CARD_WIDTH - 2}" height="{card_height - 2}" rx="15" class="card" />
-  <text x="28" y="37" class="title">Garfield Zhu’s coding languages</text>
-  <line x1="477" y1="14" x2="477" y2="48" stroke="#263449" />
-  <text x="612" y="23" class="period" text-anchor="end">LAST 7 DAYS</text>
+  <text x="28" y="37" class="title">{title}</text>
+  <line x1="477" y1="14" x2="477" y2="48" stroke="{palette['border']}" />
+  <text x="612" y="23" class="period" text-anchor="end">{period}</text>
   <text x="612" y="43" class="total" text-anchor="end">{total_text}</text>
-  <line x1="26" y1="61" x2="614" y2="61" stroke="#263449" />
+  <line x1="26" y1="61" x2="614" y2="61" stroke="{palette['border']}" />
 {rows_markup}
-  <line x1="26" y1="{footer_rule_y}" x2="614" y2="{footer_rule_y}" stroke="#263449" />
-  <text x="28" y="{card_height - 10}" class="source">Data source: WakaTime · Language colors: GitHub Linguist</text>
+  <line x1="26" y1="{footer_rule_y}" x2="614" y2="{footer_rule_y}" stroke="{palette['border']}" />
+  <text x="28" y="{card_height - 10}" class="source">{source}</text>
 </svg>
 '''
 
@@ -206,10 +278,10 @@ def update_readme(summary: str) -> bool:
     return True
 
 
-def update_svg(svg: str) -> bool:
-    if SVG_CARD.exists() and SVG_CARD.read_text(encoding="utf-8") == svg:
+def update_svg(path: Path, svg: str) -> bool:
+    if path.exists() and path.read_text(encoding="utf-8") == svg:
         return False
-    SVG_CARD.write_text(svg, encoding="utf-8")
+    path.write_text(svg, encoding="utf-8")
     return True
 
 
@@ -217,7 +289,9 @@ if __name__ == "__main__":
     username = os.environ.get("WAKATIME_USERNAME", "AlohaYo")
     stats = fetch_stats(username)
     changed_readme = update_readme(render(stats))
-    changed_svg = update_svg(render_svg(stats))
+    changed_svg = update_svg(SVG_CARD, render_svg(stats, "en", "dark"))
+    for (locale, theme), path in SVG_VARIANTS.items():
+        changed_svg = update_svg(path, render_svg(stats, locale, theme)) or changed_svg
     if changed_readme or changed_svg:
         print("Updated WakaTime README and language card.")
     else:
