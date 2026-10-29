@@ -23,10 +23,10 @@ END = "<!--END_SECTION:waka-->"
 PROFILE_IMAGE_BASE = "https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master"
 WAKATIME_URL = "https://wakatime.com/@AlohaYo"
 CARD_WIDTH = 640
-MAX_LANGUAGE_ROWS = 8
+MAX_VISIBLE_LANGUAGES = 10
 CARD_COPY = {
     "en": {
-        "title": "Garfield Zhu’s coding languages",
+        "title": "Garfield Zhu's Coding Activities",
         "period": "LAST 7 DAYS",
         "period_description": "the last 7 days",
         "others": "Others",
@@ -35,7 +35,7 @@ CARD_COPY = {
         "description": "Coding activity over {period}: {total}. Languages shown: {languages}.",
     },
     "zh-CN": {
-        "title": "Garfield Zhu 的编程语言",
+        "title": "Garfield Zhu 的编程活动",
         "period": "近 7 天",
         "period_description": "过去 7 天",
         "others": "其他",
@@ -128,7 +128,7 @@ def render(_stats: dict) -> str:
     <picture>
       <source media="(prefers-color-scheme: light)" srcset="{light_image_url}" />
       <source media="(prefers-color-scheme: dark)" srcset="{dark_image_url}" />
-      <img src="{fallback_image_url}" width="640" alt="Garfield Zhu's coding languages over the last 7 days" />
+      <img src="{fallback_image_url}" width="640" alt="Garfield Zhu's coding activities over the last 7 days" />
     </picture>
   </a>
 </div>'''
@@ -158,9 +158,9 @@ def language_rows(stats: dict) -> tuple[list[dict], float]:
     languages.sort(key=lambda language: language["total_seconds"], reverse=True)
     total_seconds = sum(language["total_seconds"] for language in languages)
 
-    if len(languages) > MAX_LANGUAGE_ROWS:
-        visible = languages[: MAX_LANGUAGE_ROWS - 1]
-        remainder = languages[MAX_LANGUAGE_ROWS - 1 :]
+    if len(languages) > MAX_VISIBLE_LANGUAGES:
+        visible = languages[:MAX_VISIBLE_LANGUAGES]
+        remainder = languages[MAX_VISIBLE_LANGUAGES:]
         visible.append({
             "name": "Others",
             "total_seconds": sum(language["total_seconds"] for language in remainder),
