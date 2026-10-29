@@ -1,0 +1,42 @@
+name: Update GitHub Stats Card
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/github-stats.yml'
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out profile repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Generate GitHub Stats card
+        uses: stats-organization/github-readme-stats-action@2c498845f71017821efaad14293ebc736156ef21 # v2.1.0
+        with:
+          card: stats
+          options: username=GarfieldZHU&show_icons=true&theme=tokyonight&hide_border=true
+          path: github-stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_error: true
+
+      - name: Commit updated card
+        run: |
+          git add -- github-stats.svg
+          if git diff --cached --quiet -- github-stats.svg; then
+            echo "GitHub Stats card is unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: update GitHub stats card"
+          git push origin HEAD:master
