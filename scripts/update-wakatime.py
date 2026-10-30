@@ -31,8 +31,8 @@ CARD_COPY = {
         "period_description": "the last 7 days",
         "others": "Others",
         "empty": "No coding activity over the last 7 days.",
-        "source": "Data source: WakaTime · Language colors: GitHub Linguist",
-        "description": "Coding activity over {period}: {total}. Languages shown: {languages}.",
+        "source": "Bars relative to largest entry · Data: WakaTime · GitHub Linguist colors",
+        "description": "Coding activity over {period}: {total}. Languages shown: {languages}. Bars are scaled against the largest listed entry; percentages show each entry's share of total language time.",
     },
     "zh-CN": {
         "title": "Garfield Zhu 的编程活动",
@@ -40,8 +40,8 @@ CARD_COPY = {
         "period_description": "过去 7 天",
         "others": "其他",
         "empty": "过去 7 天没有编程活动。",
-        "source": "数据来源：WakaTime · 语言颜色：GitHub Linguist",
-        "description": "{period}的编程活动：{total}。统计语言：{languages}。",
+        "source": "条长相对最大项目 · 数据：WakaTime · 语言颜色：GitHub Linguist",
+        "description": "{period}的编程活动：{total}。统计语言：{languages}。条长以最大项目为基准，占比表示该项占总语言用时的比例。",
     },
 }
 CARD_PALETTES = {
@@ -179,6 +179,9 @@ def render_svg(stats: dict, locale: str = "en", theme: str = "dark") -> str:
         raise RuntimeError("WakaTime response did not include a total for the last seven days.")
 
     languages, total_language_seconds = language_rows(stats)
+    largest_entry_seconds = max(
+        (language["total_seconds"] for language in languages), default=0
+    )
     total_seconds = float(stats.get("total_seconds") or total_language_seconds)
     total = compact_duration(total_seconds) if total_seconds > 0 else str(human_readable_total)
     total_text = html.escape(total, quote=True)
@@ -201,9 +204,10 @@ def render_svg(stats: dict, locale: str = "en", theme: str = "dark") -> str:
         seconds = language["total_seconds"]
         percent = (seconds / total_language_seconds * 100) if total_language_seconds else 0
         track_width = column_width - 16
-        bar_width = min(track_width, track_width * percent / 100)
-        if percent > 0:
-            bar_width = max(bar_width, 3)
+        bar_width = (
+            track_width * seconds / largest_entry_seconds
+            if largest_entry_seconds > 0 else 0
+        )
         source_name = language["name"]
         display_name = copy["others"] if source_name == "Others" else source_name
         name = html.escape(display_name, quote=True)
@@ -215,8 +219,8 @@ def render_svg(stats: dict, locale: str = "en", theme: str = "dark") -> str:
     <circle cx="{x + 4:.1f}" cy="{y + 5}" r="4" fill="{color}" stroke="{palette['dot_outline']}" stroke-opacity="{palette['dot_outline_opacity']}" />
     <text x="{x + 15:.1f}" y="{y + 9}" class="language">{name}</text>
     <text x="{x + column_width:.1f}" y="{y + 9}" class="duration" text-anchor="end">{stats_label}</text>
-    <rect x="{x + 15:.1f}" y="{y + 18}" width="{track_width:.1f}" height="4" rx="2" class="track" />
-    <rect x="{x + 15:.1f}" y="{y + 18}" width="{bar_width:.1f}" height="4" rx="2" fill="{color}" />
+    <rect x="{x + 15:.1f}" y="{y + 18}" width="{track_width:.1f}" height="6" rx="3" class="track" />
+    <rect x="{x + 15:.1f}" y="{y + 18}" width="{bar_width:.1f}" height="6" rx="3" fill="{color}" />
   </g>'''
         )
 
