@@ -46,9 +46,9 @@
 <div align="center">
   <a href="https://wakatime.com/@AlohaYo">
     <picture>
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime-en-light.svg" />
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime-en-dark.svg" />
-      <img src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime.svg" width="640" alt="Garfield Zhu's coding activities over the last 7 days" />
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime-en-light.svg?v=2026-11-04" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime-en-dark.svg?v=2026-11-04" />
+      <img src="https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master/wakatime.svg?v=2026-11-04" width="640" alt="Garfield Zhu's coding activities over the last 7 days" />
     </picture>
   </a>
 </div>
