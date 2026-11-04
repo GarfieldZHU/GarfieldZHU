@@ -28,7 +28,6 @@ END = "<!--END_SECTION:waka-->"
 PROFILE_IMAGE_BASE = "https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/master"
 WAKATIME_URL = "https://wakatime.com/@AlohaYo"
 CARD_WIDTH = 640
-MAX_VISIBLE_LANGUAGES = 10
 WAKATIME_TIMEOUT_SECONDS = 20
 WAKATIME_MAX_ATTEMPTS = 4
 WAKATIME_RETRY_DELAYS_SECONDS = (2, 5, 10)
@@ -249,18 +248,7 @@ def language_rows(stats: dict) -> tuple[list[dict], float]:
 
     languages.sort(key=lambda language: language["total_seconds"], reverse=True)
     total_seconds = sum(language["total_seconds"] for language in languages)
-
-    if len(languages) > MAX_VISIBLE_LANGUAGES:
-        visible = languages[:MAX_VISIBLE_LANGUAGES]
-        remainder = languages[MAX_VISIBLE_LANGUAGES:]
-        visible.append({
-            "name": "Others",
-            "total_seconds": sum(language["total_seconds"] for language in remainder),
-        })
-    else:
-        visible = languages
-
-    return visible, total_seconds
+    return languages, total_seconds
 
 
 def render_svg(
