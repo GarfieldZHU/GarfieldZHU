@@ -28,18 +28,18 @@
     <rect x="43.0" y="102" width="266.0" height="6" rx="3" fill="#3178c6" />
   </g>
   <g class="language-row">
-    <circle cx="334.0" cy="89" r="4" fill="#718096" stroke="#ffffff" stroke-opacity=".28" />
+    <circle cx="334.0" cy="89" r="4" fill="#fcb32c" stroke="#ffffff" stroke-opacity=".28" />
     <text x="345.0" y="93" class="language">MDX</text>
     <text x="612.0" y="93" class="duration" text-anchor="end">2h 45m · 20.8%</text>
     <rect x="345.0" y="102" width="266.0" height="6" rx="3" class="track" />
-    <rect x="345.0" y="102" width="224.5" height="6" rx="3" fill="#718096" />
+    <rect x="345.0" y="102" width="224.5" height="6" rx="3" fill="#fcb32c" />
   </g>
   <g class="language-row">
-    <circle cx="32.0" cy="135" r="4" fill="#563d7c" stroke="#ffffff" stroke-opacity=".28" />
+    <circle cx="32.0" cy="135" r="4" fill="#663399" stroke="#ffffff" stroke-opacity=".28" />
     <text x="43.0" y="139" class="language">CSS</text>
     <text x="310.0" y="139" class="duration" text-anchor="end">1h 27m · 11.1%</text>
     <rect x="43.0" y="148" width="266.0" height="6" rx="3" class="track" />
-    <rect x="43.0" y="148" width="119.2" height="6" rx="3" fill="#563d7c" />
+    <rect x="43.0" y="148" width="119.2" height="6" rx="3" fill="#663399" />
   </g>
   <g class="language-row">
     <circle cx="334.0" cy="135" r="4" fill="#b07219" stroke="#ffffff" stroke-opacity=".28" />
@@ -91,11 +91,11 @@
     <rect x="345.0" y="286" width="15.9" height="6" rx="3" fill="#dea584" />
   </g>
   <g class="language-row">
-    <circle cx="32.0" cy="319" r="4" fill="#718096" stroke="#ffffff" stroke-opacity=".28" />
+    <circle cx="32.0" cy="319" r="4" fill="#89e051" stroke="#ffffff" stroke-opacity=".28" />
     <text x="43.0" y="323" class="language">Bash</text>
     <text x="310.0" y="323" class="duration" text-anchor="end">11m · 1.4%</text>
     <rect x="43.0" y="332" width="266.0" height="6" rx="3" class="track" />
-    <rect x="43.0" y="332" width="15.1" height="6" rx="3" fill="#718096" />
+    <rect x="43.0" y="332" width="15.1" height="6" rx="3" fill="#89e051" />
   </g>
   <g class="language-row">
     <circle cx="334.0" cy="319" r="4" fill="#718096" stroke="#ffffff" stroke-opacity=".28" />
