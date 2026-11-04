@@ -15,9 +15,12 @@ on:
       - '.github/workflows/readme.yml'
       - 'scripts/update-wakatime.py'
   schedule:
-    # Primary run at 02:17 China Standard Time; backup at 06:17.
+    # 02:17 CST primary, 06:17 CST backup, 08:47 CST third net. GitHub drops or
+    # delays scheduled runs frequently, so a single missed cron used to mean a
+    # whole day without a refreshed chart.
     - cron: '17 18 * * *'
     - cron: '17 22 * * *'
+    - cron: '47 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -35,8 +38,11 @@ jobs:
         shell: bash
         run: |
           today="$(TZ=Asia/Shanghai date +'%Y-%m-%d')"
-          if grep -Fq "Updated ${today} (UTC+8)" wakatime.svg \
-            || grep -Fq "generated ${today} (UTC+8)" wakatime.svg; then
+          # Only a genuine WakaTime refresh stamps "Updated". A degraded run
+          # stamps "generated ... refresh failed" and still exits 0, so it must
+          # not be mistaken for success -- otherwise the later cron skips the
+          # retry and the card silently keeps yesterday's data.
+          if grep -Fq "Updated ${today} (UTC+8)" wakatime.svg; then
             echo "already_updated=true" >> "$GITHUB_OUTPUT"
             echo "Today's WakaTime chart is already present on master."
           else
