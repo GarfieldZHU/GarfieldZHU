@@ -84,7 +84,8 @@ CARD_PALETTES = {
         "dot_outline_opacity": ".14",
     },
 }
-# GitHub Linguist language colors and aliases; source: https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml
+# GitHub Linguist language colors and aliases, plus WakaTime display aliases.
+# Source: https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml
 LANGUAGE_COLORS = {
     "1c enterprise": "#814CCC",
     "2-dimensional array": "#38761D",
@@ -519,6 +520,7 @@ LANGUAGE_COLORS = {
     "il assembly": "#512BD4",
     "ilasm": "#512BD4",
     "ile rpg": "#2BDE21",
+    "image (svg)": "#ff9900",
     "imagej macro": "#99AAFF",
     "imba": "#16cec6",
     "imhex": "#3a6be0",
