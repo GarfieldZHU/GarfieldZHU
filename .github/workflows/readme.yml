@@ -3,6 +3,10 @@ name: Update Waka Readme
 permissions:
   contents: write
 
+concurrency:
+  group: update-waka-readme-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   push:
     branches:
@@ -11,29 +15,104 @@ on:
       - '.github/workflows/readme.yml'
       - 'scripts/update-wakatime.py'
   schedule:
-    # Runs at 12am IST
-    - cron: '30 18 * * *'
+    # Primary run at 02:17 China Standard Time; backup at 06:17.
+    - cron: '17 18 * * *'
+    - cron: '17 22 * * *'
   workflow_dispatch:
 
 jobs:
   update-readme:
     name: Update Readme with Metrics
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: master
+      - id: daily_check
+        name: Check whether today's chart has already been pushed
+        if: github.event_name == 'schedule'
+        shell: bash
+        run: |
+          today="$(TZ=Asia/Shanghai date +'%Y-%m-%d')"
+          if grep -Fq "Updated ${today} (UTC+8)" wakatime.svg \
+            || grep -Fq "generated ${today} (UTC+8)" wakatime.svg; then
+            echo "already_updated=true" >> "$GITHUB_OUTPUT"
+            echo "Today's WakaTime chart is already present on master."
+          else
+            echo "already_updated=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Update README from the public WakaTime profile
+        if: steps.daily_check.outputs.already_updated != 'true'
         env:
           WAKATIME_USERNAME: AlohaYo
-        run: python3 scripts/update-wakatime.py
-      - name: Commit updated stats
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            if python3 scripts/update-wakatime.py; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              delay=$((attempt * 5))
+              echo "::warning::Update attempt ${attempt} failed; retrying in ${delay}s."
+              sleep "$delay"
+            fi
+          done
+          echo "::error::WakaTime update failed after 3 workflow attempts."
+          exit 1
+      - name: Commit and push updated stats
+        if: steps.daily_check.outputs.already_updated != 'true'
+        shell: bash
         run: |
           files=(README.md wakatime.svg wakatime-en-light.svg wakatime-en-dark.svg wakatime-zh-CN-light.svg wakatime-zh-CN-dark.svg)
-          if git diff --quiet -- "${files[@]}"; then
-            echo "WakaTime stats have not changed."
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "${files[@]}"
+          if git diff --cached --quiet -- "${files[@]}"; then
+            echo "Today's WakaTime stats are already up to date."
+            exit 0
+          fi
           git commit -m "docs: update WakaTime stats"
-          git push origin HEAD:master
+
+          for attempt in 1 2 3; do
+            if git push origin HEAD:master; then
+              echo "WakaTime stats pushed to master."
+              exit 0
+            fi
+
+            echo "::warning::Push attempt ${attempt} failed; syncing with master before retry."
+            if git fetch origin master; then
+              if ! git rebase origin/master; then
+                echo "::warning::Rebase conflicted; regenerating stats on the latest master."
+                git rebase --abort || true
+                git reset --hard origin/master
+
+                for refresh_attempt in 1 2 3; do
+                  if python3 scripts/update-wakatime.py; then
+                    break
+                  fi
+                  if [ "$refresh_attempt" -eq 3 ]; then
+                    echo "::error::Could not regenerate WakaTime assets after a push conflict."
+                    exit 1
+                  fi
+                  sleep "$((refresh_attempt * 5))"
+                done
+
+                git add -- "${files[@]}"
+                if git diff --cached --quiet -- "${files[@]}"; then
+                  echo "The latest master already contains today's WakaTime stats."
+                  exit 0
+                fi
+                git commit -m "docs: update WakaTime stats"
+              fi
+            else
+              echo "::warning::Could not fetch master; the next push attempt will retry."
+            fi
+
+            if [ "$attempt" -lt 3 ]; then
+              sleep "$((attempt * 5))"
+            fi
+          done
+
+          echo "::error::Could not push WakaTime stats after 3 attempts."
+          exit 1
