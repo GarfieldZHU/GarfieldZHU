@@ -98,11 +98,11 @@
     <rect x="43.0" y="332" width="15.1" height="6" rx="3" fill="#89e051" />
   </g>
   <g class="language-row">
-    <circle cx="334.0" cy="319" r="4" fill="#718096" stroke="#0f172a" stroke-opacity=".14" />
+    <circle cx="334.0" cy="319" r="4" fill="#ff9900" stroke="#0f172a" stroke-opacity=".14" />
     <text x="345.0" y="323" class="language">Image (svg)</text>
     <text x="612.0" y="323" class="duration" text-anchor="end">7m · 0.8%</text>
     <rect x="345.0" y="332" width="266.0" height="6" rx="3" class="track" />
-    <rect x="345.0" y="332" width="8.9" height="6" rx="3" fill="#718096" />
+    <rect x="345.0" y="332" width="8.9" height="6" rx="3" fill="#ff9900" />
   </g>
   <line x1="26" y1="364" x2="614" y2="364" stroke="#d8e1ec" />
   <text x="28" y="382" class="source">Bars relative to largest entry · Data: WakaTime · GitHub Linguist colors · Updated 2026-11-04 (UTC+8)</text>
