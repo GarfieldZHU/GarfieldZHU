@@ -3,9 +3,14 @@
 
 import html
 import json
+import math
 import os
+import re
+import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
@@ -24,6 +29,11 @@ PROFILE_IMAGE_BASE = "https://raw.githubusercontent.com/GarfieldZHU/GarfieldZHU/
 WAKATIME_URL = "https://wakatime.com/@AlohaYo"
 CARD_WIDTH = 640
 MAX_VISIBLE_LANGUAGES = 10
+WAKATIME_TIMEOUT_SECONDS = 20
+WAKATIME_MAX_ATTEMPTS = 4
+WAKATIME_RETRY_DELAYS_SECONDS = (2, 5, 10)
+CHINA_TIMEZONE = timezone(timedelta(hours=8))
+SVG_SOURCE_RE = re.compile(r'(<text x="28" y="\d+" class="source">).*?(</text>)', re.DOTALL)
 CARD_COPY = {
     "en": {
         "title": "Garfield Zhu's Coding Activities",
@@ -100,29 +110,111 @@ LANGUAGE_COLORS = {
 OTHER_COLOR = "#718096"
 
 
-def fetch_stats(username: str) -> dict:
+class RetryableStatsError(RuntimeError):
+    """WakaTime may return a usable response after a short delay."""
+
+
+class NonRetryableStatsError(RuntimeError):
+    """The public stats cannot be fetched without a configuration change."""
+
+
+def validate_stats(payload: object) -> dict:
+    if not isinstance(payload, dict):
+        raise RetryableStatsError("the API response was not a JSON object")
+
+    stats = payload.get("data")
+    if not isinstance(stats, dict) or stats.get("status") != "ok":
+        status = stats.get("status", "missing") if isinstance(stats, dict) else "missing"
+        raise RetryableStatsError(f"the API returned stats status {status!r}")
+
+    if stats.get("is_coding_activity_visible") is False:
+        raise NonRetryableStatsError("WakaTime coding activity is not publicly visible")
+    if stats.get("is_coding_activity_visible") is not True:
+        raise RetryableStatsError("the API did not confirm that coding activity is visible")
+    if stats.get("is_up_to_date") is not True:
+        raise RetryableStatsError("WakaTime is still calculating the latest stats")
+    if stats.get("range") != "last_7_days":
+        raise RetryableStatsError("the API returned a stats range other than last_7_days")
+
+    human_readable_total = stats.get("human_readable_total")
+    if not isinstance(human_readable_total, str) or not human_readable_total.strip():
+        raise RetryableStatsError("the API response did not include a readable total")
+    if not isinstance(stats.get("languages"), list):
+        raise RetryableStatsError("the API response did not include a language list")
+
+    total_seconds = stats.get("total_seconds")
+    if total_seconds is not None:
+        try:
+            parsed_total = float(total_seconds)
+        except (TypeError, ValueError) as error:
+            raise RetryableStatsError("the API returned an invalid total_seconds value") from error
+        if not math.isfinite(parsed_total) or parsed_total < 0:
+            raise RetryableStatsError("the API returned an invalid total_seconds value")
+
+    for language in stats["languages"]:
+        if not isinstance(language, dict):
+            raise RetryableStatsError("the API returned an invalid language entry")
+        try:
+            seconds = float(language.get("total_seconds", 0) or 0)
+        except (TypeError, ValueError) as error:
+            raise RetryableStatsError("the API returned an invalid language duration") from error
+        if not math.isfinite(seconds) or seconds < 0:
+            raise RetryableStatsError("the API returned an invalid language duration")
+
+    return stats
+
+
+def fetch_stats_once(username: str) -> dict:
     encoded_username = quote(f"@{username}", safe="")
     url = f"https://api.wakatime.com/api/v1/users/{encoded_username}/stats/last_7_days"
     request = Request(
         url,
         headers={"Accept": "application/json", "User-Agent": "GarfieldZHU-profile"},
     )
-    with urlopen(request, timeout=30) as response:
-        payload = json.load(response)
+    try:
+        with urlopen(request, timeout=WAKATIME_TIMEOUT_SECONDS) as response:
+            payload = json.load(response)
+    except HTTPError as error:
+        if error.code == 429 or error.code >= 500:
+            raise RetryableStatsError(f"WakaTime returned HTTP {error.code}") from error
+        raise NonRetryableStatsError(f"WakaTime returned HTTP {error.code}") from error
+    except (URLError, TimeoutError, OSError) as error:
+        raise RetryableStatsError(f"WakaTime request failed: {error}") from error
+    except (json.JSONDecodeError, UnicodeDecodeError) as error:
+        raise RetryableStatsError("WakaTime returned invalid JSON") from error
 
-    stats = payload.get("data")
-    if not isinstance(stats, dict) or stats.get("status") != "ok":
-        raise RuntimeError("WakaTime did not return a usable public stats response.")
-    if stats.get("is_coding_activity_visible") is False:
-        raise RuntimeError("WakaTime coding activity is not publicly visible.")
-    return stats
+    return validate_stats(payload)
 
 
-def render(_stats: dict) -> str:
+def fetch_stats(username: str) -> dict:
+    last_error = None
+    for attempt in range(1, WAKATIME_MAX_ATTEMPTS + 1):
+        try:
+            return fetch_stats_once(username)
+        except NonRetryableStatsError:
+            raise
+        except RetryableStatsError as error:
+            last_error = error
+            if attempt == WAKATIME_MAX_ATTEMPTS:
+                break
+
+            delay = WAKATIME_RETRY_DELAYS_SECONDS[attempt - 1]
+            print(
+                f"WakaTime attempt {attempt}/{WAKATIME_MAX_ATTEMPTS} failed: {error}. "
+                f"Retrying in {delay}s."
+            )
+            time.sleep(delay)
+
+    raise RuntimeError(
+        f"WakaTime stats were unusable after {WAKATIME_MAX_ATTEMPTS} attempts: {last_error}"
+    ) from last_error
+
+
+def render(_stats: dict, cache_version: str) -> str:
     """Embed the shared SVG card in the GitHub profile README."""
-    light_image_url = f"{PROFILE_IMAGE_BASE}/wakatime-en-light.svg"
-    dark_image_url = f"{PROFILE_IMAGE_BASE}/wakatime-en-dark.svg"
-    fallback_image_url = f"{PROFILE_IMAGE_BASE}/wakatime.svg"
+    light_image_url = f"{PROFILE_IMAGE_BASE}/wakatime-en-light.svg?v={cache_version}"
+    dark_image_url = f"{PROFILE_IMAGE_BASE}/wakatime-en-dark.svg?v={cache_version}"
+    fallback_image_url = f"{PROFILE_IMAGE_BASE}/wakatime.svg?v={cache_version}"
     return f'''<div align="center">
   <a href="{WAKATIME_URL}">
     <picture>
@@ -171,7 +263,12 @@ def language_rows(stats: dict) -> tuple[list[dict], float]:
     return visible, total_seconds
 
 
-def render_svg(stats: dict, locale: str = "en", theme: str = "dark") -> str:
+def render_svg(
+    stats: dict,
+    locale: str = "en",
+    theme: str = "dark",
+    freshness_label: str = "",
+) -> str:
     copy = CARD_COPY.get(locale, CARD_COPY["en"])
     palette = CARD_PALETTES.get(theme, CARD_PALETTES["dark"])
     human_readable_total = stats.get("human_readable_total")
@@ -238,7 +335,8 @@ def render_svg(stats: dict, locale: str = "en", theme: str = "dark") -> str:
     ), quote=True)
     title = html.escape(copy["title"], quote=True)
     period = html.escape(copy["period"], quote=True)
-    source = html.escape(copy["source"], quote=True)
+    source_text = f"{copy['source']} · {freshness_label}" if freshness_label else copy["source"]
+    source = html.escape(source_text, quote=True)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{CARD_WIDTH}" height="{card_height}" viewBox="0 0 {CARD_WIDTH} {card_height}" role="img" aria-labelledby="title description">
   <title id="title">{title} · {period}</title>
   <desc id="description">{description}</desc>
@@ -289,14 +387,74 @@ def update_svg(path: Path, svg: str) -> bool:
     return True
 
 
+def mark_svg_refresh_failed(path: Path, locale: str, cache_version: str) -> bool:
+    if not path.exists():
+        raise RuntimeError(f"Cannot retain the previous WakaTime card; missing {path.name}.")
+
+    svg = path.read_text(encoding="utf-8")
+    if locale == "zh-CN":
+        freshness = f"WakaTime · 沿用缓存统计 · 刷新失败 · 生成于 {cache_version}（UTC+8）"
+    else:
+        freshness = f"WakaTime · cached stats · refresh failed · generated {cache_version} (UTC+8)"
+    replacement = rf"\g<1>{html.escape(freshness, quote=True)}\g<2>"
+    updated, count = SVG_SOURCE_RE.subn(replacement, svg, count=1)
+    if count != 1:
+        raise RuntimeError(f"Could not find a WakaTime card footer in {path.name}.")
+    if updated == svg:
+        return False
+
+    path.write_text(updated, encoding="utf-8")
+    return True
+
+
+def shanghai_date() -> str:
+    return datetime.now(timezone.utc).astimezone(CHINA_TIMEZONE).strftime("%Y-%m-%d")
+
+
+def svg_paths() -> list[tuple[str, Path]]:
+    variants = [(locale, path) for (locale, _theme), path in SVG_VARIANTS.items()]
+    return [("en", SVG_CARD), *variants]
+
+
+def refresh_with_cached_cards(cache_version: str, error: Exception) -> None:
+    print(
+        f"::warning::WakaTime refresh failed ({error}). Retaining the previous stats and "
+        f"marking today's cards as cached."
+    )
+    changed_svg = False
+    for locale, path in svg_paths():
+        changed_svg = mark_svg_refresh_failed(path, locale, cache_version) or changed_svg
+    update_readme(render({}, cache_version))
+    if changed_svg:
+        print(f"Refreshed all WakaTime card assets for {cache_version} using clearly marked cached stats.")
+    else:
+        print(f"WakaTime cards already show the cached state for {cache_version}.")
+
+
 if __name__ == "__main__":
     username = os.environ.get("WAKATIME_USERNAME", "AlohaYo")
-    stats = fetch_stats(username)
-    changed_readme = update_readme(render(stats))
-    changed_svg = update_svg(SVG_CARD, render_svg(stats, "en", "dark"))
-    for (locale, theme), path in SVG_VARIANTS.items():
-        changed_svg = update_svg(path, render_svg(stats, locale, theme)) or changed_svg
-    if changed_readme or changed_svg:
-        print("Updated WakaTime README and language card.")
+    cache_version = shanghai_date()
+    try:
+        stats = fetch_stats(username)
+    except (RetryableStatsError, NonRetryableStatsError, RuntimeError) as error:
+        refresh_with_cached_cards(cache_version, error)
     else:
-        print("WakaTime stats and language card are already current.")
+        changed_readme = update_readme(render(stats, cache_version))
+        freshness = f"Updated {cache_version} (UTC+8)"
+        changed_svg = update_svg(
+            SVG_CARD,
+            render_svg(stats, "en", "dark", freshness_label=freshness),
+        )
+        for (locale, theme), path in SVG_VARIANTS.items():
+            localized_freshness = (
+                f"更新于 {cache_version}（UTC+8）" if locale == "zh-CN"
+                else freshness
+            )
+            changed_svg = update_svg(
+                path,
+                render_svg(stats, locale, theme, freshness_label=localized_freshness),
+            ) or changed_svg
+        if changed_readme or changed_svg:
+            print(f"Updated WakaTime README and language cards for {cache_version} (UTC+8).")
+        else:
+            print(f"WakaTime cards for {cache_version} (UTC+8) are already current.")
