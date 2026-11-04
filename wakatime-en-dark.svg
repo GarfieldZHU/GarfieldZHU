@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="392" viewBox="0 0 640 392" role="img" aria-labelledby="title description">
   <title id="title">Garfield Zhu&#x27;s Coding Activities · LAST 7 DAYS</title>
-  <desc id="description">Coding activity over the last 7 days: 13h 10m. Languages shown: TypeScript, MDX, CSS, Java, JavaScript, Python, Markdown, YAML, JSON, Rust, Others. Bars are scaled against the largest listed entry; percentages show each entry&#x27;s share of total language time.</desc>
+  <desc id="description">Coding activity over the last 7 days: 13h 10m. Languages shown: TypeScript, MDX, CSS, Java, JavaScript, Python, Markdown, YAML, JSON, Rust, Bash, Image (svg). Bars are scaled against the largest listed entry; percentages show each entry&#x27;s share of total language time.</desc>
   <defs>
     <style>
       .card { fill: #0b1220; stroke: #263449; stroke-width: 1.5; }
@@ -92,10 +92,17 @@
   </g>
   <g class="language-row">
     <circle cx="32.0" cy="319" r="4" fill="#718096" stroke="#ffffff" stroke-opacity=".28" />
-    <text x="43.0" y="323" class="language">Others</text>
-    <text x="310.0" y="323" class="duration" text-anchor="end">18m · 2.2%</text>
+    <text x="43.0" y="323" class="language">Bash</text>
+    <text x="310.0" y="323" class="duration" text-anchor="end">11m · 1.4%</text>
     <rect x="43.0" y="332" width="266.0" height="6" rx="3" class="track" />
-    <rect x="43.0" y="332" width="24.0" height="6" rx="3" fill="#718096" />
+    <rect x="43.0" y="332" width="15.1" height="6" rx="3" fill="#718096" />
+  </g>
+  <g class="language-row">
+    <circle cx="334.0" cy="319" r="4" fill="#718096" stroke="#ffffff" stroke-opacity=".28" />
+    <text x="345.0" y="323" class="language">Image (svg)</text>
+    <text x="612.0" y="323" class="duration" text-anchor="end">7m · 0.8%</text>
+    <rect x="345.0" y="332" width="266.0" height="6" rx="3" class="track" />
+    <rect x="345.0" y="332" width="8.9" height="6" rx="3" fill="#718096" />
   </g>
   <line x1="26" y1="364" x2="614" y2="364" stroke="#263449" />
   <text x="28" y="382" class="source">Bars relative to largest entry · Data: WakaTime · GitHub Linguist colors · Updated 2026-11-04 (UTC+8)</text>
